@@ -35,9 +35,13 @@ public class AdminRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<HttpStatus> updateUser(@RequestBody User user, @PathVariable Long id) {
-        userService.updateUser(user);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Object> updateUser(@RequestBody User user, @PathVariable Long id) {
+        try {
+            userService.updateUser(user);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/{id}")
