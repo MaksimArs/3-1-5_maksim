@@ -86,7 +86,7 @@ function editModal(id) {
             document.getElementById('editUserName').value = u.username;
             document.getElementById('editSurname').value = u.surname;
             document.getElementById('editAge').value = u.age;
-            document.getElementById('editPassword').value = "****";
+            document.getElementById('editPassword').value = "";
 
         })
     });
@@ -108,6 +108,13 @@ async function editUser() {
             tmp["id"] = form_ed.role.options[i].value
             listOfRole.push(tmp);
         }
+    }
+    // Проверка наличия нового пароля
+    if (!passwordValue.trim()) {
+        // Если пароль пустой, отобразите сообщение об ошибке и прервите выполнение функции
+        //document.getElementById("password-error").style.display = "block";
+        $('#passwordErrorModal').modal('show');
+        return;
     }
     let user = {
         id: idValue,

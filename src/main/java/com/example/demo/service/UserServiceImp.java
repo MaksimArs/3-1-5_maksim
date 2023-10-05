@@ -46,8 +46,9 @@ public class UserServiceImp implements  UserService {
     public void updateUser(User user) {
         User oldUser = userRepository.findById(user.getId()).get();
         String oldPassword = oldUser.getPassword();
+
         if(user.getPassword() == null || user.getPassword().isEmpty()){
-            user.setPassword(oldPassword);
+            throw new IllegalArgumentException("Пароль не может быть пустым");
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
